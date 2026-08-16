@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAEENG 2212 — Course Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --maroon:#7A1F2B;
+    --maroon-dark:#5E171F;
+    --gold:#C9A227;
+    --royal:#1F3A93;
+    --dark:#2B2B2B;
+    --gray:#5A5A5A;
+    --light-maroon:#F5E6E8;
+    --light-gold:#FBF3DE;
+    --light-royal:#E8ECF7;
+    --border:#E2D9C9;
+    --white:#FFFFFF;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html, body{
+    height:100%;
+    margin:0;
+    overflow:hidden; /* the .app-shell below owns the single scrollbar */
+  }
+
+  body{
+    font-family:'Inter', Arial, sans-serif;
+    color:var(--dark);
+    background:#FAF8F4;
+    line-height:1.55;
+  }
+
+  /* ---------- APP SHELL ----------
+     Google Sites' "Embed code" block renders this file in a fixed-size
+     iframe that it will NOT auto-resize to fit the content. Rather than
+     depend on Sites to size the iframe correctly, this wrapper makes the
+     whole hub scroll internally, filling whatever box height/width you
+     drag the embed to in the Sites editor. Make the embed box reasonably
+     tall (700px+) and full-width; the hub handles the rest itself. */
+  .app-shell{
+    height:100vh;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Merriweather', Georgia, serif;
+    color:var(--maroon);
+    margin:0 0 .5em 0;
+  }
+
+  a{ color:var(--royal); }
+
+  /* ---------- HEADER BANNER ---------- */
+  .site-header{
+    background:linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color:#fff;
+    padding:22px 24px 18px;
+    border-bottom:5px solid var(--gold);
+  }
+  .site-header .inner{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .site-header .crest{
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 0 0 2px var(--gold);
+  }
+  .site-header .crest svg{ width:34px; height:34px; }
+  .site-header .titles{ flex:1; min-width:220px; }
+  .site-header .uni-name{
+    font-family:'Merriweather', Georgia, serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:#fff;
+    letter-spacing:.3px;
+  }
+  .site-header .sub-name{
+    font-size:.85rem;
+    color:var(--light-gold);
+    font-style:italic;
+    margin-top:2px;
+  }
+  .site-header .course-line{
+    margin-top:10px;
+    font-size:1rem;
+    font-weight:600;
+    color:#fff;
+  }
+  .site-header .course-meta{
+    font-size:.82rem;
+    color:#F1DCC0;
+    margin-top:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.tabs{
+    background:#fff;
+    border-bottom:2px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+  }
+  nav.tabs .inner{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    overflow-x:auto;
+    scrollbar-width:thin;
+  }
+  nav.tabs button{
+    appearance:none;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    padding:14px 18px;
+    font-family:'Inter', Arial, sans-serif;
+    font-size:.86rem;
+    font-weight:600;
+    color:var(--gray);
+    white-space:nowrap;
+    border-bottom:3px solid transparent;
+    transition:all .15s ease;
+  }
+  nav.tabs button:hover{ color:var(--maroon); background:var(--light-maroon); }
+  nav.tabs button.active{
+    color:var(--maroon);
+    border-bottom-color:var(--gold);
+    background:var(--light-gold);
+  }
+
+  /* ---------- MAIN ---------- */
+  main{ max-width:1100px; margin:0 auto; padding:28px 20px 60px; }
+  section.panel{ display:none; animation:fadeIn .25s ease; }
+  section.panel.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  .panel-title{
+    font-size:1.6rem;
+    border-bottom:3px solid var(--gold);
+    padding-bottom:10px;
+    margin-bottom:22px;
+  }
+  .panel-lede{
+    color:var(--gray);
+    font-size:.96rem;
+    margin-bottom:24px;
+    max-width:760px;
+  }
+
+  h3.section-h{
+    font-size:1.15rem;
+    color:var(--royal);
+    margin-top:34px;
+    border-left:4px solid var(--gold);
+    padding-left:10px;
+  }
+
+  /* ---------- CARDS ---------- */
+  .card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:18px 20px;
+    margin-bottom:16px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .card h4{ color:var(--maroon); font-size:1.02rem; margin-bottom:6px; }
+  .card .meta{ font-size:.8rem; color:var(--gray); font-style:italic; margin-bottom:10px; }
+
+  .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:760px){ .grid-2, .grid-3{ grid-template-columns:1fr; } }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:9px 16px;
+    border-radius:6px;
+    font-size:.83rem;
+    font-weight:600;
+    text-decoration:none;
+    border:1.5px solid var(--maroon);
+    color:var(--maroon);
+    background:#fff;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .btn:hover{ background:var(--maroon); color:#fff; }
+  .btn.solid{ background:var(--maroon); color:#fff; }
+  .btn.solid:hover{ background:var(--maroon-dark); }
+  .btn.gold{ border-color:var(--gold); color:#8a6d10; }
+  .btn.gold:hover{ background:var(--gold); color:#fff; }
+  .btn.disabled{ opacity:.55; cursor:not-allowed; }
+  .btn svg{ width:14px; height:14px; }
+
+  /* ---------- TABLE ---------- */
+  table.data{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0 6px;
+    font-size:.88rem;
+  }
+  table.data th{
+    background:var(--maroon);
+    color:#fff;
+    text-align:left;
+    padding:9px 12px;
+    font-weight:600;
+  }
+  table.data td{
+    padding:9px 12px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  table.data tr:nth-child(even) td{ background:var(--light-maroon); }
+  table.data tr.total td{ background:var(--gold); color:#fff; font-weight:700; }
+
+  /* ---------- BADGE ---------- */
+  .badge{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:20px;
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+  .badge.maroon{ background:var(--light-maroon); color:var(--maroon); }
+  .badge.gold{ background:var(--light-gold); color:#8a6d10; }
+  .badge.royal{ background:var(--light-royal); color:var(--royal); }
+  .badge.pending{ background:#EEE; color:#777; }
+
+  /* ---------- ACCORDION (Schedule / Tasks) ---------- */
+  .acc-item{
+    border:1px solid var(--border);
+    border-radius:10px;
+    margin-bottom:12px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .acc-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    cursor:pointer;
+    background:var(--light-gold);
+  }
+  .acc-head h4{ margin:0; color:var(--maroon); font-size:1rem; }
+  .acc-head .chevron{
+    transition:transform .2s ease;
+    color:var(--maroon);
+    font-size:1.1rem;
+  }
+  .acc-item.open .chevron{ transform:rotate(180deg); }
+  .acc-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+    padding:0 20px;
+  }
+  .acc-item.open .acc-body{ padding:16px 20px 20px; max-height:3000px; }
+
+  .day-block{ margin-bottom:14px; padding-left:14px; border-left:3px solid var(--light-royal); }
+  .day-block h5{ margin:0 0 6px; color:var(--royal); font-size:.92rem; }
+  .day-block ul{ margin:6px 0; padding-left:20px; }
+  .day-block li{ margin-bottom:3px; font-size:.88rem; }
+  .quote-box{
+    background:var(--maroon);
+    color:#fff;
+    padding:12px 16px;
+    border-radius:8px;
+    font-style:italic;
+    font-weight:700;
+    font-size:.92rem;
+    margin:10px 0;
+  }
+
+  /* ---------- RUBRIC ---------- */
+  .rubric-note{
+    font-size:.82rem;
+    color:var(--gray);
+    font-style:italic;
+    margin-top:6px;
+  }
+
+  ul.plain{ padding-left:20px; margin:8px 0; }
+  ul.plain li{ margin-bottom:5px; font-size:.92rem; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-card{
+    background:var(--light-royal);
+    border:1px solid #C7D0EC;
+    border-radius:10px;
+    padding:22px;
+  }
+  .contact-card h4{ color:var(--royal); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#fff;
+    border-top:3px solid var(--gold);
+    padding:16px 20px 22px;
+    text-align:center;
+    margin-top:20px;
+  }
+  footer .fline1{ font-size:.8rem; color:var(--gray); }
+  footer .fline2{
+    font-size:.78rem;
+    color:var(--maroon);
+    font-style:italic;
+    margin-top:4px;
+  }
+
+  .hint{
+    background:var(--light-gold);
+    border:1px dashed var(--gold);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:.8rem;
+    color:#7a5f10;
+    margin:10px 0 18px;
+  }
+</style>
+</head>
+<body>
+<div class="app-shell" id="appShell">
+
+<!-- ============================================================ HEADER ============================================================ -->
+<header class="site-header">
+  <div class="inner">
+    <div class="crest">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" fill="#7A1F2B" stroke="#C9A227" stroke-width="3"/>
+        <path d="M50 20 V80 M28 50 H72" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="titles">
+      <div class="uni-name">University of Perpetual Help System DALTA</div>
+      <div class="sub-name">Graduate School of Education</div>
+      <div class="course-line">MAEENG 2212 — Methodologies of Teaching Literature</div>
+      <div class="course-meta">Section 2-MAED-ENG-Z &nbsp;|&nbsp; Master of Arts in Education, Major in English &nbsp;|&nbsp; 1st Semester, SY 2026–2027</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ NAV ============================================================ -->
+<nav class="tabs">
+  <div class="inner" id="tabBar">
+    <button data-target="overview" class="active">Overview</button>
+    <button data-target="schedule">Schedule</button>
+    <button data-target="materials">Materials</button>
+    <button data-target="tasks">Asynchronous Tasks</button>
+    <button data-target="group">Group Reporting</button>
+    <button data-target="exams">Exams</button>
+    <button data-target="contact">Contact</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============================================================ OVERVIEW ============================================================ -->
+  <section class="panel active" id="overview">
+    <h2 class="panel-title">Course Overview</h2>
+    <p class="panel-lede">
+      A graduate seminar-workshop in the theory, research, and practice of teaching literature in English-language
+      classrooms — from foundational purposes and reader-response theory through culturally responsive, critical,
+      and digital/multimodal approaches, culminating in a theoretically grounded literature-teaching unit.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h4>Course Type</h4>
+        <p style="margin:0;font-size:.9rem;">Major / Professional Education</p>
+      </div>
+      <div class="card">
+        <h4>Delivery Mode</h4>
+        <p style="margin:0;font-size:.9rem;">Online Blended — Synchronous &amp; Asynchronous</p>
+      </div>
+      <div class="card">
+        <h4>Total Learning Time</h4>
+        <p style="margin:0;font-size:.9rem;">64 hours over 4 weeks (12h synchronous, 20h independent reading, 32h asynchronous)</p>
+      </div>
+    </div>
+
+    <h3 class="section-h">Course Description</h3>
+    <p style="font-size:.94rem;">
+      This course examines major approaches to literary pedagogy — reader-response, language-based, stylistic,
+      critical, cultural, transactional, aesthetic, and sociocultural — and how these approaches shape text
+      selection, classroom interaction, learning activities, assessment, and curricular decisions. It addresses
+      the teaching of fiction, poetry, drama, young adult literature, Philippine literature, world literature, and
+      multimodal/digital texts, with attention to critical literacy, culturally responsive teaching, inclusive
+      literary education, and technology. Students engage with scholarly literature, evaluate competing approaches,
+      design literature-based learning experiences, conduct microteaching, and develop a theoretically justified
+      literature-teaching unit for a specific educational context.
+    </p>
+
+    <h3 class="section-h">Course Learning Outcomes (CLOs)</h3>
+    <table class="data">
+      <tr><th style="width:120px;">Outcome</th><th>Description</th></tr>
+      <tr><td>CLO 1 — Theoretical Knowledge</td><td>Critically explain major theories and approaches informing the teaching and learning of literature.</td></tr>
+      <tr><td>CLO 2 — Critical Evaluation</td><td>Compare and evaluate literature-teaching approaches in relation to learners, texts, educational purposes, and sociocultural contexts.</td></tr>
+      <tr><td>CLO 3 — Text Selection</td><td>Critically select literary and multimodal texts according to pedagogical, literary, cultural, linguistic, developmental, and ethical considerations.</td></tr>
+      <tr><td>CLO 4 — Pedagogical Application</td><td>Design literature-based learning experiences that promote interpretation, critical thinking, communication, creativity, and aesthetic engagement.</td></tr>
+      <tr><td>CLO 5 — Contextualization</td><td>Adapt literature pedagogy to Philippine, multilingual, multicultural, inclusive, online, and contemporary educational contexts.</td></tr>
+      <tr><td>CLO 6 — Multimodality &amp; Digital Literacy</td><td>Integrate appropriate digital and multimodal texts and technologies into literature instruction while maintaining meaningful literary engagement.</td></tr>
+      <tr><td>CLO 7 — Assessment</td><td>Design valid and authentic assessment strategies for evaluating literary understanding, interpretation, response, critical thinking, and creative production.</td></tr>
+      <tr><td>CLO 8 — Scholarly Justification</td><td>Use relevant scholarly literature to justify pedagogical decisions and critically evaluate literature-teaching practices.</td></tr>
+      <tr><td>CLO 9 — Reflective Practice</td><td>Critically reflect on one's developing identity and practice as a teacher of literature.</td></tr>
+      <tr><td>CLO 10 — Curriculum Design</td><td>Develop a theoretically grounded literature-teaching unit that demonstrates coherence among outcomes, texts, pedagogy, activities, and assessment.</td></tr>
+    </table>
+
+    <h3 class="section-h">Assessment Plan</h3>
+    <table class="data">
+      <tr><th>Assessment</th><th style="width:110px;">Weight</th></tr>
+      <tr><td>Critical Literature Pedagogy Reflections</td><td>10%</td></tr>
+      <tr><td>Comparative Approaches Analysis</td><td>15%</td></tr>
+      <tr><td>Microteaching and Peer Review</td><td>15%</td></tr>
+      <tr><td>Critical Text Selection Portfolio</td><td>15%</td></tr>
+      <tr><td>Participation in Graduate Discussions</td><td>10%</td></tr>
+      <tr><td>Final Theory-to-Practice Literature Teaching Unit</td><td>25%</td></tr>
+      <tr><td>Reflective Commentary / Philosophy of Literature Teaching</td><td>10%</td></tr>
+      <tr class="total"><td>TOTAL</td><td>100%</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ SCHEDULE ============================================================ -->
+  <section class="panel" id="schedule">
+    <h2 class="panel-title">Course Schedule</h2>
+    <p class="panel-lede">Four Saturdays of synchronous session plus independent reading, four Sundays of asynchronous work. Click a week to expand.</p>
+
+    <div class="acc-item open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Week 1 — Why Teach Literature? <span class="badge maroon">Current</span></h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="day-block">
+          <h5>Saturday — Synchronous Session (3h): Foundations, purposes, and theories of literature education</h5>
+          <ul>
+            <li>What is literature education? Why teach literature? Competing purposes</li>
+            <li>From literary information to developing readers; literary competence</li>
+            <li>Reader-response &amp; transactional perspectives (Rosenblatt, Iser, Fish, Jauss); teacher beliefs</li>
+          </ul>
+          <div class="quote-box">Structured Debate: "The primary purpose of literature teaching should be literary appreciation."</div>
+        </div>
+        <div class="day-block">
+          <h5>Independent Reading / Study (5h)</h5>
+          <p style="font-size:.88rem;margin:4px 0;">Scholarly materials on purposes of literature education, reader-response theory, literary competence, and literature/language education.</p>
+        </div>
+        <div class="day-block">
+          <h5>Sunday — Asynchronous (8h)</h5>
+          <ul>
+            <li>Read and annotate assigned scholarly materials</li>
+            <li>Analyze two contrasting literature lessons (Lesson A / Lesson B)</li>
+            <li>Write a critical response to the guiding question</li>
+            <li>Discussion-board post + 2 peer replies</li>
+          </ul>
+          <p style="font-size:.88rem;"><strong>Product:</strong> Critical Literature Pedagogy Reflection #1 — see <em>Asynchronous Tasks</em> tab.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Week 2 — How Can Literature Be Taught?</h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="day-block">
+          <h5>Saturday — Synchronous Session (3h): Approaches and methodologies</h5>
+          <ul>
+            <li>Information-based, language-based, reader-response, stylistic, cultural, personal-growth, critical literacy, aesthetic/exploratory approaches</li>
+            <li>Jigsaw reading of approaches; comparative lesson design; microteaching demonstration; peer critique</li>
+          </ul>
+          <div class="quote-box">Central Activity — "One Text, Six Pedagogies": groups design a 10-minute teaching sequence for the same text using a different pedagogical approach, then compare teacher role, learner role, questions, activities, and assessment.</div>
+        </div>
+        <div class="day-block">
+          <h5>Independent Reading / Study (5h)</h5>
+          <p style="font-size:.88rem;margin:4px 0;">Reader-response, critical literacy, aesthetic approaches, culturally responsive literature pedagogy.</p>
+        </div>
+        <div class="day-block">
+          <h5>Sunday — Asynchronous (8h)</h5>
+          <ul>
+            <li>Select one literary text</li>
+            <li>Identify at least three possible pedagogical approaches</li>
+            <li>Design three alternative approaches to teaching the same text</li>
+            <li>Evaluate the strengths and limitations of each</li>
+          </ul>
+          <p style="font-size:.88rem;"><strong>Product:</strong> Approach-to-Practice Analysis — see <em>Asynchronous Tasks</em> tab.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Week 3 — What Should We Teach and For Whom?</h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="day-block">
+          <h5>Saturday — Synchronous Session (3h): Text selection, culture, identity, genre, multimodality</h5>
+          <ul>
+            <li>Selecting literary texts; canon and curriculum; Philippine and world literature; YA literature</li>
+            <li>Representation and identity; difficult/controversial texts; multilingual/multicultural classrooms</li>
+            <li>Text Selection Workshop; Critical Text Audit; Microteaching (Philippine, YA, multimodal, or digital text)</li>
+          </ul>
+        </div>
+        <div class="day-block">
+          <h5>Independent Reading / Study (5h)</h5>
+          <p style="font-size:.88rem;margin:4px 0;">Culturally responsive pedagogy, critical literacy, literature and identity, multimodal/digital literature.</p>
+        </div>
+        <div class="day-block">
+          <h5>Sunday — Asynchronous (8h)</h5>
+          <ul>
+            <li>Prepare a Literature Text Rationale: select one text for your own educational context</li>
+            <li>Justify using literary, pedagogical, learner, cultural, linguistic, and ethical considerations</li>
+            <li>Identify possible challenges in teaching the text</li>
+          </ul>
+          <p style="font-size:.88rem;"><strong>Product:</strong> Critical Text Selection Portfolio — see <em>Asynchronous Tasks</em> tab.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Week 4 — How Do We Design and Evaluate Literature Learning?</h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <div class="day-block">
+          <h5>Saturday — Synchronous Session (3h): Lesson/unit design, assessment, reflective practice</h5>
+          <ul>
+            <li>Backward design; learning outcomes; close reading; questioning; discussion; literature circles</li>
+            <li>Collaborative interpretation; creative response; drama/performance; digital response</li>
+            <li>Formative/authentic assessment; rubrics</li>
+          </ul>
+          <div class="quote-box">Workshop "From Theory to Teaching": Text → Theory → Outcomes → Activities → Interaction → Assessment. Peer review + final discussion: "What kind of literature teacher do I want to become?"</div>
+        </div>
+        <div class="day-block">
+          <h5>Independent Reading / Study (5h)</h5>
+          <p style="font-size:.88rem;margin:4px 0;">Assessment of literary learning, reflective practice, practitioner inquiry; revise final teaching unit based on peer feedback.</p>
+        </div>
+        <div class="day-block">
+          <h5>Sunday — Asynchronous (8h)</h5>
+          <ul>
+            <li>Complete and submit the Final Theory-to-Practice Literature Teaching Unit</li>
+            <li>Submit reflective commentary: pedagogical framework, text rationale, activity-theory alignment, assessment, learner responsiveness, revision plan</li>
+          </ul>
+          <p style="font-size:.88rem;"><strong>Product:</strong> Final Theory-to-Practice Literature Teaching Unit + Reflective Commentary — see <em>Asynchronous Tasks</em> tab.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ MATERIALS ============================================================ -->
+  <section class="panel" id="materials">
+    <h2 class="panel-title">Course Materials</h2>
+    <p class="panel-lede">Everything below lives in Google Drive. Buttons open the current file — ask your instructor if a link looks out of date.</p>
+
+    <div class="grid-2" id="materialsGrid">
+      <!-- populated in part by JS buttons below; static cards with data-key buttons -->
+      <div class="card">
+        <h4>Course Guide — Methodology of Teaching Literature</h4>
+        <div class="meta">Full syllabus, CLOs, four-week schedule, assessment plan, benchmarking summary</div>
+        <button class="btn solid" data-key="courseGuide">Open Course Guide ↗</button>
+      </div>
+      <div class="card">
+        <h4>Session 1 Slide Presentation</h4>
+        <div class="meta">"Why Teach Literature?" — synchronous session deck</div>
+        <button class="btn solid" data-key="session1Slides">Open Slides ↗</button>
+      </div>
+      <div class="card">
+        <h4>Session 1 Companion Module</h4>
+        <div class="meta">Comprehensive PDF module — theory, critique, classroom applications, annotated bibliography</div>
+        <button class="btn solid" data-key="session1Module">Open Module (PDF) ↗</button>
+      </div>
+      <div class="card">
+        <h4>Submission Tracker</h4>
+        <div class="meta">Live tracker of all graded items across the section (instructor-facing)</div>
+        <button class="btn gold" data-key="submissionTracker">Open Tracker ↗</button>
+      </div>
+      <div class="card">
+        <h4>Week 1 Structured Argument Handout</h4>
+        <div class="meta">FOR / AGAINST debate prompt, group assignments, and drafting space</div>
+        <button class="btn solid" data-key="structuredArgumentDoc">Open Handout ↗</button>
+      </div>
+      <div class="card">
+        <h4>Week 1 Recall Quiz (Blooket)</h4>
+        <div class="meta">10-item multiple choice recall set — import CSV into Blooket</div>
+        <button class="btn gold" data-key="blooketQuiz">Open Quiz File ↗</button>
+      </div>
+      <div class="card">
+        <h4>Free &amp; Open Resource Guide</h4>
+        <div class="meta">Access-checked reading list for all four weeks — free downloads, borrows, and open-access articles, with rights notes</div>
+        <button class="btn gold" data-key="openResourceGuide">Open Resource Guide ↗</button>
+      </div>
+      <div class="card">
+        <h4>Asynchronous Task Briefs (Weeks 1–4)</h4>
+        <div class="meta">Full packet — all four Sunday task briefs with required readings and rubrics</div>
+        <button class="btn solid" data-key="taskBriefsPacket">Open Task Briefs ↗</button>
+      </div>
+    </div>
+
+    <div class="hint">More materials (Weeks 2–4 slide decks, companion modules, and microteaching resources) will be added here as each session is finalized.</div>
+  </section>
+
+  <!-- ============================================================ ASYNCHRONOUS TASKS ============================================================ -->
+  <section class="panel" id="tasks">
+    <h2 class="panel-title">Asynchronous Tasks</h2>
+    <p class="panel-lede">
+      Four Sunday task briefs, one per week, each worth 50 points, 800–1,000 words (written component;
+      quotations, artifacts, and references additional), due 8:00 PM on its Sunday to that week's Team
+      Discussion channel with two substantive peer replies.
+    </p>
+
+    <table class="data" style="margin-bottom:20px;">
+      <tr><th>Week</th><th>Sunday Product</th><th style="width:90px;">Points</th></tr>
+      <tr><td>Week 1</td><td>Critical Literature Pedagogy Reflection #1</td><td>50 pts</td></tr>
+      <tr><td>Week 2</td><td>Approach-to-Practice Analysis</td><td>50 pts</td></tr>
+      <tr><td>Week 3</td><td>Critical Text Selection Portfolio</td><td>50 pts</td></tr>
+      <tr><td>Week 4</td><td>Reflective Commentary — Formative Check-In</td><td>50 pts</td></tr>
+    </table>
+
+    <div class="hint">
+      <strong>A note on academic integrity and AI tools:</strong> you may use AI to brainstorm, check grammar, or
+      tighten prose — the way you might use a writing center. You may not have an AI tool invent the learner
+      quotation, pilot result, or interview response your reflection depends on, or write the theoretical
+      analysis wholesale from a prompt describing your topic. Two submissions built on the same theory but
+      different real conversations should read as genuinely different pieces of writing.
+    </div>
+
+    <!-- TASK 1 -->
+    <div class="acc-item open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Task 1 · Week 1 — Critical Literature Pedagogy Reflection #1 <span class="badge maroon">50 pts</span></h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-style:italic;color:var(--maroon);font-weight:700;">"What Ordinary Reading Instruction Cannot Do"</p>
+        <p style="font-size:.88rem;">
+          <strong>Word limit:</strong> 800–1,000 words (written component; quotations, artifacts, and references additional) &nbsp;·&nbsp;
+          <strong>Due:</strong> Sunday of Week 1, 8:00 PM — posted to the Week 1 Discussion channel, with two substantive peer replies
+        </p>
+        <p style="font-size:.9rem;">
+          Identify one real learner and have an actual conversation this week about a short literary text they have
+          read recently. Capture at least one direct quotation (identified only by an appropriate pseudonym and
+          general description). In 800–1,000 words, open with that quotation and argue a defensible position on the
+          guiding question <em>“What should literature education accomplish that ordinary reading instruction
+          cannot?”</em> using at least two theoretical frames from Week 1. Connect explicitly to the Lesson A / Lesson B
+          distinction from the comparative-lesson workshop, and close by revising or defending your one-sentence
+          exit-reflection answer from the session.
+        </p>
+        <p style="font-size:.85rem;color:var(--gray);font-style:italic;">
+          This is deliberately not an essay completable from theory alone. A response with a strong argument but no
+          real conversation behind it, or a suspiciously generic quotation such as "reading helps me understand
+          life," will not meet the evidentiary standard this task requires.
+        </p>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Read Before You Write</h5>
+        <ul class="plain">
+          <li><strong>Required</strong> — <a href="https://literariness.org/2016/10/23/reader-response-criticism-an-essay/" target="_blank" rel="noopener">Reader-Response Criticism: An Essay</a> (literariness.org) — the Rosenblatt/Iser/Jauss primer</li>
+          <li><strong>Required</strong> — Pajares, M. F. (1992). Teachers' beliefs and educational research: Cleaning up a messy construct. <em>Review of Educational Research, 62</em>(3), 307–332. <a href="https://ssrlsig.org/wp-content/uploads/2018/02/pajares-1992-teachers_-beliefs-and-educational-research-cleaning-up-a-messy-construct.pdf" target="_blank" rel="noopener">Open-access PDF</a></li>
+          <li><strong>Recommended</strong> — Rosenblatt, L. M. <em>Literature as Exploration.</em> <a href="https://archive.org/details/literatureasexpl00rose" target="_blank" rel="noopener">Free to borrow, Internet Archive</a></li>
+        </ul>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Grading Rubric</h5>
+        <table class="data">
+          <tr><th>Criteria</th><th>What This Looks Like</th><th style="width:70px;">Points</th></tr>
+          <tr><td>Authentic evidence base</td><td>A direct quotation from a real, appropriately contextualized conversation with a real learner.</td><td>10</td></tr>
+          <tr><td>Theoretical grounding</td><td>Accurate, substantive use of at least two theorists or frameworks from the session and this week's assigned readings.</td><td>15</td></tr>
+          <tr><td>Argument and position</td><td>A clear, defensible position on the guiding question — not description alone.</td><td>10</td></tr>
+          <tr><td>Connection and reflective depth</td><td>Explicit link to the Lesson A/B distinction, plus a revised or defended exit-reflection sentence.</td><td>10</td></tr>
+          <tr><td>Academic communication</td><td>Clarity, organization, word-count compliance, and accurate reference to theorists.</td><td>5</td></tr>
+          <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
+        </table>
+        <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+      </div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Task 2 · Week 2 — Approach-to-Practice Analysis <span class="badge maroon">50 pts</span></h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-style:italic;color:var(--maroon);font-weight:700;">"One Text, Three Pedagogies, One Real Reaction"</p>
+        <p style="font-size:.88rem;">
+          <strong>Word limit:</strong> 800–1,000 words &nbsp;·&nbsp;
+          <strong>Due:</strong> Sunday of Week 2, 8:00 PM — posted to the Week 2 Discussion channel, with two substantive peer replies
+        </p>
+        <p style="font-size:.9rem;">
+          Choose one literary text you already teach, plan to teach, or could plausibly teach. Design three
+          genuinely different short teaching sequences for that text, each built on a distinct pedagogical approach
+          from Week 2 (information-based, language-based, reader-response, stylistic, cultural, personal-growth,
+          critical literacy, or aesthetic/exploratory) — specifying teacher role, learner role, central questions,
+          and evidence of learning for each. Then actually try one of the three with real learners this week (a
+          class, a small group, a single learner, or a colleague role-playing genuinely) and record at least one
+          real, near-verbatim response.
+        </p>
+        <p style="font-size:.9rem;">
+          In 800–1,000 words, evaluate all three approaches, giving special weight to the one you actually tried:
+          what happened that you expected, what didn't, and what that reveals about the approach's strengths and
+          limitations for this text and this group. Use theory to explain any gap between prediction and
+          observation — start by asking whether the real reaction reflects an efferent or aesthetic stance, and
+          whether the pedagogy invited or worked against that stance. Close by stating which approach you would
+          actually choose going forward, and why.
+        </p>
+        <p style="font-size:.85rem;color:var(--gray);font-style:italic;">
+          A response that only theorizes three approaches without a genuinely attempted trial and a real, specific
+          reaction will be graded as incomplete on the evidentiary criterion below, regardless of theoretical polish.
+        </p>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Read Before You Write</h5>
+        <ul class="plain">
+          <li><strong>Required</strong> — <a href="https://openwa.pressbooks.pub/octavianog/chapter/literary-theory-and-schools-of-criticism-purdue-owl/" target="_blank" rel="noopener">Literary Theory and Schools of Criticism</a> (Purdue OWL)</li>
+          <li><strong>Required</strong> — <a href="https://www.teachingenglish.org.uk/teaching-resources/teaching-secondary/lesson-plans/intermediate-b1/literature-great" target="_blank" rel="noopener">"Literature is Great"</a> lesson plan (British Council TeachingEnglish)</li>
+          <li><strong>Recommended</strong> — Widdowson, H. G. <em>Stylistics and the Teaching of Literature.</em> <a href="https://archive.org/details/stylisticsteachi0000widd" target="_blank" rel="noopener">Free to borrow, Internet Archive</a></li>
+        </ul>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Grading Rubric</h5>
+        <table class="data">
+          <tr><th>Criteria</th><th>What This Looks Like</th><th style="width:70px;">Points</th></tr>
+          <tr><td>Design of three approaches</td><td>Clear, accurate application of three pedagogical models, correctly distinguished and informed by this week's assigned readings.</td><td>12</td></tr>
+          <tr><td>Authentic trial evidence</td><td>A real, specific learner reaction from a genuine trial, appropriately documented.</td><td>10</td></tr>
+          <tr><td>Analytical depth</td><td>Explains the gap between prediction and observation using course theory.</td><td>13</td></tr>
+          <tr><td>Defensible final choice</td><td>States and justifies one approach as the best fit for this text and context.</td><td>10</td></tr>
+          <tr><td>Academic communication</td><td>Organization, clarity, word-count compliance, and two substantive peer replies.</td><td>5</td></tr>
+          <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
+        </table>
+        <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+      </div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Task 3 · Week 3 — Critical Text Selection Portfolio <span class="badge maroon">50 pts</span></h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-style:italic;color:var(--maroon);font-weight:700;">"Whose Voice Is in the Room?"</p>
+        <p style="font-size:.88rem;">
+          <strong>Word limit:</strong> 800–1,000 words &nbsp;·&nbsp;
+          <strong>Due:</strong> Sunday of Week 3, 8:00 PM — posted to the Week 3 Discussion channel, with two substantive peer replies
+        </p>
+        <p style="font-size:.9rem;">
+          Select a literary text currently used, or considered for use, in your own teaching context (or a program
+          you know well). First, conduct a critical text audit: whose voice is represented? Whose is absent? What
+          identities or assumptions does the text present as default? What linguistic, cultural, or developmental
+          demands does it place on your actual learners? Ground this in at least one quoted passage. Second, talk
+          this week to at least two real learners or colleagues about their actual reaction to the text (or a
+          similar one), recording at least one direct quotation from each, using pseudonyms.
+        </p>
+        <p style="font-size:.9rem;">
+          In 800–1,000 words, write a Literature Text Rationale arguing for keeping, replacing, or reframing this
+          text, using the syllabus's own selection grounds: literary value, pedagogical value, learner
+          appropriateness, cultural representation, linguistic demand, and ethical considerations. Your rationale
+          must directly engage what your two real respondents told you — agreeing with, complicating, or pushing
+          back against your own audit using their actual words. Identify one genuine anticipated challenge and one
+          concrete way you would address it.
+        </p>
+        <p style="font-size:.85rem;color:var(--gray);font-style:italic;">
+          A rationale built only on your own inference about "what students would probably think" does not meet the
+          standard — the point of this week's audit is testing your assumptions against actual readers.
+        </p>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Read Before You Write</h5>
+        <ul class="plain">
+          <li><strong>Required</strong> — Rudine Sims Bishop (1990). <a href="https://www.facinghistory.org/sites/default/files/2022-10/Windows_Mirrors_and_Sliding_Glass_Doors.pdf" target="_blank" rel="noopener">"Mirrors, Windows, and Sliding Glass Doors"</a> (PDF)</li>
+          <li><strong>Required</strong> — <a href="https://education.uw.edu/sites/default/files/20405019.pdf" target="_blank" rel="noopener">"Multicultural Education: Development, Dimensions, and Challenges"</a> (Univ. of Washington, summarizing James A. Banks)</li>
+          <li><strong>Recommended</strong> — José Rizal, <em>Noli Me Tangere</em> / <em>El Filibusterismo.</em> <a href="https://www.gutenberg.org/ebooks/20228" target="_blank" rel="noopener">Free download, Project Gutenberg</a></li>
+        </ul>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Grading Rubric</h5>
+        <table class="data">
+          <tr><th>Criteria</th><th>What This Looks Like</th><th style="width:70px;">Points</th></tr>
+          <tr><td>Critical text audit</td><td>Specific, textually grounded audit addressing voice, representation, and learner demand, informed by this week's readings.</td><td>12</td></tr>
+          <tr><td>Authentic learner/colleague input</td><td>Two real, appropriately documented quotations genuinely used in the analysis.</td><td>10</td></tr>
+          <tr><td>Rationale and argument</td><td>Clear position using the syllabus's own selection grounds, honestly engaging respondent input.</td><td>13</td></tr>
+          <tr><td>Anticipated challenge and response</td><td>Identifies one genuine challenge and one concrete, workable response to it.</td><td>10</td></tr>
+          <tr><td>Academic communication</td><td>Organization, clarity, word-count compliance, and two substantive peer replies.</td><td>5</td></tr>
+          <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
+        </table>
+        <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+      </div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <h4>Task 4 · Week 4 — Reflective Commentary: Formative Check-In <span class="badge maroon">50 pts</span></h4>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="acc-body">
+        <p style="font-style:italic;color:var(--maroon);font-weight:700;">"Piloting One Piece of Your Unit"</p>
+        <p style="font-size:.88rem;">
+          <strong>Word limit:</strong> 800–1,000 words &nbsp;·&nbsp;
+          <strong>Due:</strong> Sunday of Week 4, 8:00 PM — posted to the Week 4 Discussion channel, with two substantive peer replies
+        </p>
+        <div class="hint" style="margin-top:0;">
+          This Sunday task feeds into the Week 4 Reflective Commentary component of the Theory-to-Practice
+          Literature Teaching Unit (the major final performance task — graded separately at 25% for the unit and
+          10% for the reflective commentary; see <em>Overview → Assessment Plan</em>). It is a smaller, discrete
+          formative piece, <strong>not</strong> the final unit submission itself.
+        </div>
+        <p style="font-size:.9rem;">
+          Select one activity, question sequence, or assessment moment from your in-progress teaching unit —
+          something specific enough to run in 15–25 minutes. Pilot that one piece this week with real learners (your
+          class, a volunteer group, a colleague's class, or peers/family standing in as readers, run genuinely
+          rather than performed). Collect one real, specific artifact: learner writing, a transcribed exchange, a
+          de-identified photo of a worksheet, or a close paraphrase including at least one direct quotation.
+        </p>
+        <p style="font-size:.9rem;">
+          In 800–1,000 words, write a focused reflective commentary addressing four things: what you expected the
+          activity to produce, based on your unit's theoretical framework; what the pilot actually produced, using
+          your artifact/quotation as primary evidence; where theory and reality diverged, and your best explanation
+          why; and exactly what you will revise in your final unit as a result — a specific, describable change, not
+          a vague intention to "improve engagement."
+        </p>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Read Before You Write</h5>
+        <ul class="plain">
+          <li><strong>Required</strong> — <a href="https://ies.ed.gov/ncee/rel/regions/northeast/onlinetraining/ResourcesTools/Bloom's%20Taxonomy.pdf" target="_blank" rel="noopener">Bloom's Taxonomy of Educational Objectives</a> (PDF, IES / Northeast REL, U.S. Dept. of Education)</li>
+          <li><strong>Recommended</strong> — Revisit Pajares (1992) from Week 1. <a href="https://ssrlsig.org/wp-content/uploads/2018/02/pajares-1992-teachers_-beliefs-and-educational-research-cleaning-up-a-messy-construct.pdf" target="_blank" rel="noopener">Open-access PDF</a></li>
+        </ul>
+        <h5 style="color:var(--royal);font-size:.92rem;margin:14px 0 6px;">Grading Rubric</h5>
+        <table class="data">
+          <tr><th>Criteria</th><th>What This Looks Like</th><th style="width:70px;">Points</th></tr>
+          <tr><td>Piloted activity design</td><td>Clearly and specifically drawn from the student's own in-progress teaching unit.</td><td>8</td></tr>
+          <tr><td>Authentic artifact or evidence</td><td>A real, specific piece of learner work, transcript, or documented reaction.</td><td>12</td></tr>
+          <tr><td>Theory-to-reality analysis</td><td>Substantive explanation of convergence or divergence using course theory and, where relevant, this week's reading.</td><td>15</td></tr>
+          <tr><td>Concrete revision plan</td><td>A specific, actionable change to the final unit, not a vague intention.</td><td>10</td></tr>
+          <tr><td>Academic communication</td><td>Organization, clarity, word-count compliance, and two substantive peer replies.</td><td>5</td></tr>
+          <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
+        </table>
+        <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ GROUP REPORTING ============================================================ -->
+  <section class="panel" id="group">
+    <h2 class="panel-title">Group Reporting</h2>
+    <p class="panel-lede">
+      Collaborative Reporting is a graded component of the course (100 points, tracked in the Submission
+      Tracker). Group assignments below reflect what has been finalized so far.
+    </p>
+
+    <h3 class="section-h">Week 1 — Structured Debate Groups</h3>
+    <p style="font-size:.9rem;">
+      For the Week 1 structured debate on the motion <em>“The primary purpose of literature teaching should be
+      literary appreciation,”</em> the class of 26 students was divided into two groups of 13 by alternating roster
+      order, to keep the split even and unbiased.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>FOR — Literary Appreciation</h4>
+        <p style="font-size:.85rem;color:var(--gray);">13 students — odd positions in roster order</p>
+        <button class="btn solid" data-key="structuredArgumentDoc">View Full Group List ↗</button>
+      </div>
+      <div class="card">
+        <h4>AGAINST — Other / Plural Purposes</h4>
+        <p style="font-size:.85rem;color:var(--gray);">13 students — even positions in roster order</p>
+        <button class="btn solid" data-key="structuredArgumentDoc">View Full Group List ↗</button>
+      </div>
+    </div>
+
+    <h3 class="section-h">Collaborative Reporting Teams (Weeks 2–4)</h3>
+    <div class="hint">
+      Team assignments, presentation schedule, and rubric for the Collaborative Reporting component (100 pts) have
+      not yet been finalized in the source materials for this hub. Once the instructor assigns teams and posts the
+      rubric, this section will list each team's members, topic, and presentation date.
+    </div>
+    <button class="btn gold" data-key="groupReportingGuide">Open Group Reporting Guide (when available) ↗</button>
+  </section>
+
+  <!-- ============================================================ EXAMS ============================================================ -->
+  <section class="panel" id="exams">
+    <h2 class="panel-title">Exams</h2>
+    <p class="panel-lede">Point values below are drawn from the course's live Submission Tracker.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>Midterm Exam <span class="badge royal">25 pts</span></h4>
+        <p style="font-size:.88rem;">Quiz format. Covers Weeks 1–2 content: foundations, purposes of literature education, reader-response and transactional theory, and approaches to teaching literature.</p>
+        <button class="btn solid" data-key="midtermExamDoc">Open Midterm Exam Info ↗</button>
+      </div>
+      <div class="card">
+        <h4>Final Exam <span class="badge royal">50 pts</span></h4>
+        <p style="font-size:.88rem;">Covers the full course: text selection, culturally responsive and critical pedagogy, digital/multimodal literature, and lesson/unit design and assessment.</p>
+        <button class="btn solid" data-key="finalExamDoc">Open Final Exam Info ↗</button>
+      </div>
+    </div>
+
+    <div class="hint">Detailed exam coverage, format, and review guides will be posted closer to each exam date.</div>
+  </section>
+
+  <!-- ============================================================ CONTACT ============================================================ -->
+  <section class="panel" id="contact">
+    <h2 class="panel-title">Contact</h2>
+    <div class="contact-card">
+      <h4>Dr. Carlo S. Villalona, LPT, PhD</h4>
+      <p style="font-size:.92rem;margin:4px 0;">Graduate School of Education</p>
+      <p style="font-size:.92rem;margin:4px 0;">University of Perpetual Help System DALTA — Las Piñas Campus</p>
+      <p style="font-size:.92rem;margin:14px 0 4px;" id="contactEmailLine"></p>
+      <p style="font-size:.92rem;margin:4px 0;" id="contactHoursLine"></p>
+      <div class="hint" id="contactHint" style="margin-top:14px;">Update the CONTACT_INFO object near the top of this file's script with the instructor's preferred email and consultation hours.</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================ FOOTER ============================================================ -->
+<footer>
+  <div class="fline1">MAEENG 2212 — Methodologies of Teaching Literature &nbsp;|&nbsp; Section 2-MAED-ENG-Z &nbsp;|&nbsp; 1st Semester, SY 2026–2027</div>
+  <div class="fline2">For use in the class of Dr. Carlo S. Villalona only.</div>
+</footer>
+
+</div><!-- /.app-shell -->
+
+<script>
+/* ================================================================
+   EDIT ME: DRIVE_LINKS
+   Paste the real Google Drive share URL for each resource below.
+   Leave a value as "" (empty string) to show a "not yet linked"
+   notice instead of a broken button.
+   ================================================================ */
+const DRIVE_LINKS = {
+  // Materials tab
+  courseGuide:            "",   // Course Guide DOCX — Methodology of Teaching Literature
+  session1Slides:         "",   // Session 1 slide deck (PPTX)
+  session1Module:         "",   // Session 1 Companion Module (PDF)
+  submissionTracker:      "",   // Submission_Tracker_MAEENG2212_2MAEDENGZ.xlsx
+  structuredArgumentDoc:  "",   // Week 1 Structured Argument handout (DOCX)
+  blooketQuiz:            "",   // Blooket_Session1_Recall_Quiz.csv / .xlsx
+  openResourceGuide:      "",   // MAEENG2212_Module2_OpenResources.docx
+  taskBriefsPacket:       "",   // Week14_Asynchronous_Task_Briefs.docx — all 4 task briefs in one file
+
+  // Group Reporting tab
+  groupReportingGuide:    "",   // Group Reporting Guide (once built)
+
+  // Exams tab
+  midtermExamDoc:         "",   // Midterm exam info / review guide
+  finalExamDoc:           "",   // Final exam info / review guide
+};
+
+/* ================================================================
+   EDIT ME: CONTACT_INFO
+   ================================================================ */
+const CONTACT_INFO = {
+  email: "",            // e.g. "carlo.villalona@uphsd.edu.ph"
+  consultationHours: "" // e.g. "By appointment, Tuesdays 2–4 PM via MS Teams"
+};
+
+/* ================================================================
+   Tab switching
+   ================================================================ */
+function showPanel(id){
+  document.querySelectorAll("section.panel").forEach(function(p){
+    p.classList.toggle("active", p.id === id);
+  });
+  document.querySelectorAll("nav.tabs button").forEach(function(b){
+    b.classList.toggle("active", b.getAttribute("data-target") === id);
+  });
+  document.getElementById("appShell").scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("tabBar").addEventListener("click", function(e){
+  const btn = e.target.closest("button[data-target]");
+  if(!btn) return;
+  showPanel(btn.getAttribute("data-target"));
+});
+
+/* ================================================================
+   Accordion (Schedule / Tasks)
+   ================================================================ */
+function toggleAcc(headEl){
+  headEl.parentElement.classList.toggle("open");
+}
+
+/* ================================================================
+   Populate Drive-link buttons from DRIVE_LINKS config
+   ================================================================ */
+document.querySelectorAll("button[data-key]").forEach(function(btn){
+  const key = btn.getAttribute("data-key");
+  const url = DRIVE_LINKS[key];
+  if(url && url.trim() !== ""){
+    btn.addEventListener("click", function(){ window.open(url, "_blank", "noopener"); });
+  } else {
+    btn.classList.add("disabled");
+    btn.innerHTML = btn.innerHTML.replace("↗", "") + " (link not yet added)";
+    btn.addEventListener("click", function(){
+      alert('This link has not been added yet.\n\nAdd the Google Drive URL for "' + key + '" to the DRIVE_LINKS object near the top of this file\'s <script> section.');
+    });
+  }
+});
+
+/* ================================================================
+   Populate Contact tab from CONTACT_INFO config
+   ================================================================ */
+(function(){
+  const emailLine = document.getElementById("contactEmailLine");
+  const hoursLine = document.getElementById("contactHoursLine");
+  const hint = document.getElementById("contactHint");
+
+  if(CONTACT_INFO.email){
+    emailLine.innerHTML = "<strong>Email:</strong> <a href='mailto:" + CONTACT_INFO.email + "'>" + CONTACT_INFO.email + "</a>";
+  } else {
+    emailLine.innerHTML = "<strong>Email:</strong> <em style='color:#999;'>not yet added</em>";
+  }
+
+  if(CONTACT_INFO.consultationHours){
+    hoursLine.innerHTML = "<strong>Consultation Hours:</strong> " + CONTACT_INFO.consultationHours;
+  } else {
+    hoursLine.innerHTML = "<strong>Consultation Hours:</strong> <em style='color:#999;'>not yet added</em>";
+  }
+
+  if(CONTACT_INFO.email && CONTACT_INFO.consultationHours){
+    hint.style.display = "none";
+  }
+})();
+</script>
+
+</body>
+</html>
