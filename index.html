@@ -595,6 +595,11 @@
         <button class="btn gold" data-key="submissionTracker">Open Tracker ↗</button>
       </div>
       <div class="card">
+        <h4>Attendance Tracker</h4>
+        <div class="meta">Session attendance record (SharePoint, instructor-facing)</div>
+        <button class="btn gold" data-key="attendanceTracker">Open Attendance ↗</button>
+      </div>
+      <div class="card">
         <h4>Week 1 Structured Argument Handout</h4>
         <div class="meta">FOR / AGAINST debate prompt, group assignments, and drafting space</div>
         <button class="btn solid" data-key="structuredArgumentDoc">Open Handout ↗</button>
@@ -740,6 +745,7 @@
           <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
         </table>
         <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+        <button class="btn gold" data-key="task2Submission" style="margin-top:10px;margin-left:8px;">Submit Your Work ↗</button>
       </div>
     </div>
 
@@ -792,6 +798,7 @@
           <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
         </table>
         <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+        <button class="btn gold" data-key="task3Submission" style="margin-top:10px;margin-left:8px;">Submit Your Work ↗</button>
       </div>
     </div>
 
@@ -843,6 +850,7 @@
           <tr class="total"><td>TOTAL</td><td></td><td>50</td></tr>
         </table>
         <button class="btn solid" data-key="taskBriefsPacket" style="margin-top:10px;">Open Full Task Briefs Packet ↗</button>
+        <button class="btn gold" data-key="task4Submission" style="margin-top:10px;margin-left:8px;">Submit Your Work ↗</button>
       </div>
     </div>
   </section>
@@ -874,13 +882,29 @@
       </div>
     </div>
 
-    <h3 class="section-h">Collaborative Reporting Teams (Weeks 2–4)</h3>
-    <div class="hint">
-      Team assignments, presentation schedule, and rubric for the Collaborative Reporting component (100 pts) have
-      not yet been finalized in the source materials for this hub. Once the instructor assigns teams and posts the
-      rubric, this section will list each team's members, topic, and presentation date.
+    <h3 class="section-h">Collaborative Reporting Teams (Weeks 3–4)</h3>
+    <p style="font-size:.9rem;">
+      Materials for the Collaborative Reporting component are below. Specific team assignments and the
+      presentation schedule will be added here once posted — the guide, group output module, and slide
+      deck are already available.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Group Reporting Guide</h4>
+        <div class="meta">Collaborative Reporting &amp; Companion Module — includes the rubric</div>
+        <button class="btn gold" data-key="groupReportingGuide">Open Guide ↗</button>
+      </div>
+      <div class="card">
+        <h4>Group Output</h4>
+        <div class="meta">Literature-Pedagogy-to-Practice Module (folder)</div>
+        <button class="btn gold" data-key="groupOutputModule">Open Group Output ↗</button>
+      </div>
+      <div class="card">
+        <h4>Group Reporting Slides</h4>
+        <div class="meta">Presentation deck for the collaborative reporting session (folder)</div>
+        <button class="btn gold" data-key="groupReportingSlides">Open Slides ↗</button>
+      </div>
     </div>
-    <button class="btn gold" data-key="groupReportingGuide">Open Group Reporting Guide (when available) ↗</button>
   </section>
 
   <!-- ============================================================ EXAMS ============================================================ -->
@@ -908,7 +932,7 @@
   <section class="panel" id="contact">
     <h2 class="panel-title">Contact</h2>
     <div class="contact-card">
-      <h4>Dr. Carlo S. Villalona, LPT, PhD</h4>
+      <h4>Dr. Carlo S. Villalona, LPT</h4>
       <p style="font-size:.92rem;margin:4px 0;">Graduate School of Education</p>
       <p style="font-size:.92rem;margin:4px 0;">University of Perpetual Help System DALTA — Las Piñas Campus</p>
       <p style="font-size:.92rem;margin:14px 0 4px;" id="contactEmailLine"></p>
@@ -940,13 +964,21 @@ const DRIVE_LINKS = {
   session1Slides:         "https://drive.google.com/file/d/1Db8Ij5bsrj6Tx7__KKq2v8KuiHCjsA6e/view?usp=drive_link",   // Session 1 slide deck (PPTX)
   session1Module:         "https://drive.google.com/file/d/149WXlJj6s80lzitAIfwF6N5lEA_vBF7g/view?usp=drive_link",   // Session 1 Companion Module (PDF)
   submissionTracker:      "https://docs.google.com/spreadsheets/d/14JDW7ac6dmSEJH_nHVutj0lkQFRf7SmV/edit?usp=sharing&ouid=107362608855027775466&rtpof=true&sd=true",   // Submission_Tracker_MAEENG2212_2MAEDENGZ.xlsx
-  structuredArgumentDoc:  "",   // Week 1 Structured Argument handout (DOCX)
+  attendanceTracker:      "https://uphsd-my.sharepoint.com/:x:/g/personal/carlo_villalona_perpetual_edu_ph/IQBPKt5RoXfkQqRXURU50kHnAXxsX6w5NnPyS_Uck3FjAkY?e=pZZ3Kw",   // Attendance_MAEENG 2212 - Methodologies of Teaching Literature (SharePoint)
+  structuredArgumentDoc:  "https://drive.google.com/file/d/1nqvJj9IIrwrDH9I8bdxV_koadZgJPXm-/view?usp=sharing",   // Week 1 Structured Argument handout (DOCX)
   blooketQuiz:            "",   // Blooket_Session1_Recall_Quiz.csv / .xlsx
   openResourceGuide:      "https://docs.google.com/document/d/1GWGjOuxDgIezwr0LCkNH3Ng4Gd1L7UMb/edit?usp=sharing&ouid=107362608855027775466&rtpof=true&sd=true",   // MAEENG2212_Module2_OpenResources.docx
   taskBriefsPacket:       "https://docs.google.com/document/d/1yyfC42QjMOFKMeHpkjK8jP60lw1GRHsO/edit?usp=sharing&ouid=107362608855027775466&rtpof=true&sd=true",   // Week14_Asynchronous_Task_Briefs.docx — all 4 task briefs in one file
 
+  // Asynchronous Tasks tab — submission folders (where students turn work in)
+  task2Submission:        "https://drive.google.com/drive/folders/1uMzeCe3v8SmMW4W1l6EIAKiAdUGafc3V?usp=drive_link",   // Task 2 submission folder
+  task3Submission:        "https://drive.google.com/drive/folders/108tnf93Cu7ixS8gqJqaPS-Rr5fMn21ZP?usp=drive_link",   // Task 3 submission folder
+  task4Submission:        "https://drive.google.com/drive/folders/1MXHeeAm9EPCusmTzA0Oj4VKO1XB4wyNK?usp=drive_link",   // Task 4 submission folder
+
   // Group Reporting tab
-  groupReportingGuide:    "",   // Group Reporting Guide (once built)
+  groupReportingGuide:    "https://drive.google.com/file/d/18gPTFcEKDUrvX-Q-Pvk_CAy5xUb30yM-/view?usp=sharing",   // Collaborative Reporting & Companion Module (rubric + guide)
+  groupOutputModule:      "https://drive.google.com/drive/folders/18pMzU4aTs_uXvFG13V_Z_DiJ30yWtB1D?usp=drive_link",   // Group Output: Literature-Pedagogy-to-Practice Module (folder)
+  groupReportingSlides:   "https://drive.google.com/drive/folders/1dogu-zWh44xxO1jn_NRAooyq3-vXk56c?usp=drive_link",   // Group Reporting Slides Presentation (folder)
 
   // Exams tab
   midtermExamDoc:         "",   // Midterm exam info / review guide
@@ -957,8 +989,8 @@ const DRIVE_LINKS = {
    EDIT ME: CONTACT_INFO
    ================================================================ */
 const CONTACT_INFO = {
-  email: "",            // e.g. "carlo.villalona@uphsd.edu.ph"
-  consultationHours: "" // e.g. "By appointment, Tuesdays 2–4 PM via MS Teams"
+  email: "carlo.villalon@perpetualdalta.edu.ph",
+  consultationHours: "8:00 AM – 8:00 PM, via FB group chat or email"
 };
 
 /* ================================================================
